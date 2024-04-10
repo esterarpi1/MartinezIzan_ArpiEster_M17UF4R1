@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 
 public class GameManager : MonoBehaviour
@@ -113,13 +112,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         _animator.SetBool("isDancing", false);
-    }
-
-    //Basic controller for the menus
-    public void chooseScene(int n)
-    {
-        if ( n == -1 ) Application.Quit();
-        else SceneManager.LoadScene(n);
     }
 
     //Camera controller to set the minimap view
