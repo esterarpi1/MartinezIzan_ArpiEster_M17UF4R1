@@ -15,6 +15,10 @@ public abstract class State
     {
 
     }
+    public void OnStateUpdate()
+    {
+        OnUpdate();
+    }
 
     public virtual void OnUpdate()
     {
