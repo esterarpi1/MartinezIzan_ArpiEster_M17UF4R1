@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class State : IState
+public abstract class State
 {
+    StateController sc;
+    public virtual void OnEnter(StateController stateController)
+    {
+        sc = stateController;
+        OnEnter();
+    }
     public virtual void OnEnter()
     {
 
