@@ -12,6 +12,8 @@ public class SavePoint : IInteractable
     void savingData()
     {
         Debug.Log("saving..");
+
+        GameManager.Instance.saveData();
     }
     // Start is called before the first frame update
     void Start()
