@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainPlayer : MonoBehaviour
 {
@@ -51,6 +52,10 @@ public class MainPlayer : MonoBehaviour
         //{
         //    _animator.SetBool("isGrounded", true);
         //}
+        if(player.health <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
     public void HandleRotation(Vector2 direction)
     {
