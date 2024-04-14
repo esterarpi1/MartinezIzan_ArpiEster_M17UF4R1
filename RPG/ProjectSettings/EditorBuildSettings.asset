@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneOne.unity
     guid: 84ee7da86720ff64d9e72a3bcd921ab2
+  - enabled: 1
+    path: Assets/Scenes/DeadMenu.unity
+    guid: 2e30996ef3130984c88dd3196cd51b02
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5e3edc2e6a0b3e24f951d9a9cabec233,
       type: 2}
