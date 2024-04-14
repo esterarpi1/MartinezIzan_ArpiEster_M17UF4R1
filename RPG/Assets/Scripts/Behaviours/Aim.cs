@@ -9,17 +9,17 @@ public class Aim : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _animator = animator;
-        InputController.Aim += aim;
-        InputController.Shoot += Shoot;
+        //InputController.Aim += aim;
+        InputController.Hit += hit;
     }
-    void Shoot()
+    void hit()
     {
-        _animator.SetBool("isShooting", true);
+        _animator.SetBool("isHitting", true);
     }
-    private void aim()
-    {       
-        _animator.SetLayerWeight(_animator.GetLayerIndex("Attack"), 0);
-    }
+    //private void aim()
+    //{       
+    //    _animator.SetLayerWeight(_animator.GetLayerIndex("Attack"), 0);
+    //}
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -29,7 +29,8 @@ public class Aim : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        InputController.Aim -= aim;
+        //InputController.Aim -= aim;
+        InputController.Hit -= hit;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
