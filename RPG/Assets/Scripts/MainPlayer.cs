@@ -31,6 +31,7 @@ public class MainPlayer : MonoBehaviour
         InputController.Run += RunHandler;
         InputController.Crouch += CrouchHandler;
         InputController.Interact += PickObject;
+        InputController.Hit += Hit;
 
         if (Instance == null)
         {
@@ -61,11 +62,10 @@ public class MainPlayer : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Llamar a la función para disparar la bola de fuego
-            DispararBolaDeFuego();
-        }
+    }
+    void Hit()
+    {
+        DispararBolaDeFuego();
     }
     void DispararBolaDeFuego()
     {
