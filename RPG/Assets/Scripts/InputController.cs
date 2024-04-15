@@ -11,7 +11,7 @@ public class InputController : MonoBehaviour
     public static event Action<bool> Walk = delegate { };
     public static event Action Run = delegate { };
     public static event Action Aim = delegate { };
-    public static event Action Shoot = delegate { };
+    public static event Action Hit = delegate { };
     public static event Action Jump = delegate { };
     public static event Action MiniMap = delegate { };
     public static event Action Interact = delegate { };
@@ -36,13 +36,13 @@ public class InputController : MonoBehaviour
         {           
             Crouch.Invoke();
         };
-        _inputs.MainPlayer.Aim.performed += ctx =>
-        {
-            Aim.Invoke();
-        };
+        //_inputs.MainPlayer.Aim.performed += ctx =>
+        //{
+        //    Hit.Invoke();
+        //};
         _inputs.MainPlayer.Shoot.performed += ctx =>
         {
-            Shoot.Invoke();
+            Hit.Invoke();
         };
         _inputs.MainPlayer.Jump.performed += ctx =>
         {

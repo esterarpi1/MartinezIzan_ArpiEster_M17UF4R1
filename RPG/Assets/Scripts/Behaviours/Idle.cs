@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Idle : StateMachineBehaviour
@@ -13,6 +14,7 @@ public class Idle : StateMachineBehaviour
         InputController.Walk += Walk;
         InputController.Aim += Aim;
         InputController.Jump += Jump;
+        InputController.Hit += Hit;
     }
     private void Jump()
     {
@@ -30,6 +32,10 @@ public class Idle : StateMachineBehaviour
     private void Walk(bool walking)
     {
         _animator.SetBool("isWalking", walking);
+    }
+    private void Hit()
+    {
+        _animator.SetBool("isHitting", true);
     }
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
