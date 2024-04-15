@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   name: Shubur
-  health: 100
+  health: -40
   maxHealth: 100
   speed: 3
   coolDown: 3

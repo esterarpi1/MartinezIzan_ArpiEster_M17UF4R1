@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MainPlayer : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class MainPlayer : MonoBehaviour
     public GameObject itemPositon;
     public float rotationSpeed = 50.0f;
     public bool isGrounded = true;
-    public float rotationSpeed = 50f;
+    public GameObject bolaDeFuegoPrefab;
+    public float fuerzaDisparo = 10f;
+    public Transform puntoDeDisparo;
+    public float tiempoDeVida = 5f;
 
     public void setPlayer(float x, float y, float z, float health)
     {
@@ -57,6 +61,40 @@ public class MainPlayer : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Llamar a la función para disparar la bola de fuego
+            DispararBolaDeFuego();
+        }
+    }
+    void DispararBolaDeFuego()
+    {
+        // Obtener la posición del ratón en el mundo
+        Vector3 posicionMouse = Input.mousePosition;
+        posicionMouse.z = Vector3.Distance(transform.position, Camera.main.transform.position);
+        Vector3 puntoDeDestino = Camera.main.ScreenToWorldPoint(posicionMouse);
+
+        // Calcular la dirección desde el punto de origen hacia el punto de destino
+        Vector3 direccion = (puntoDeDestino - puntoDeDisparo.position).normalized;
+
+        // Instanciar el prefab de la bola de fuego en el punto de origen del disparo
+        GameObject bolaDeFuego = Instantiate(bolaDeFuegoPrefab, puntoDeDisparo.position, Quaternion.identity);
+
+        // Obtener el Rigidbody de la bola de fuego y aplicarle una fuerza en la dirección calculada
+        Rigidbody rb = bolaDeFuego.GetComponent<Rigidbody>();
+        rb.AddForce(direccion * fuerzaDisparo, ForceMode.Impulse);
+
+        // Iniciar la corrutina para destruir la bola de fuego después de un tiempo
+        StartCoroutine(DestruirBolaDeFuego(bolaDeFuego));
+    }
+
+    IEnumerator DestruirBolaDeFuego(GameObject bola)
+    {
+        // Esperar el tiempo de vida de la bola de fuego
+        yield return new WaitForSeconds(tiempoDeVida);
+
+        // Destruir la bola de fuego
+        Destroy(bola);
     }
     public void HandleRotation(Vector2 direction)
     {
