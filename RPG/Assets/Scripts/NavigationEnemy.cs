@@ -8,6 +8,7 @@ public class AIController : MonoBehaviour
     public Transform player; // Posición del jugador
     public float chaseDistance = 10f; // Distancia a partir de la cual comienza a perseguir al jugador
     public float switchDistance = 1f; // Distancia a partir de la cual cambia de dirección/
+    public Character enemyData; // Scriptable object que contiene datos del enemigo
 
     private NavMeshAgent agent;
     private bool isChasing = false;
@@ -20,26 +21,40 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
-        if (!isChasing)
+        if (enemyData.health < 50)
         {
-            // Si no está persiguiendo al jugador, moverse entre direction1 y direction2
-            if (Vector3.Distance(transform.position, agent.destination) <= switchDistance)
-            {
-                // Cambiar la dirección de destino entre direction1 y direction2
-                SetNextDestination();
-            }
+            Vector3 fleeDirection = player.position;
+            Vector3 targetDestination = transform.position + fleeDirection.normalized * 10f; // Distancia de huída
+            SetDestination(targetDestination);
         }
         else
         {
-            // Si está persiguiendo al jugador, dirigirse hacia la posición del jugador
-            SetDestination(player.position);
-        }
+            if (!isChasing)
+            {
+                // Si no está persiguiendo al jugador, moverse entre direction1 y direction2
+                if (Vector3.Distance(transform.position, agent.destination) <= switchDistance)
+                {
+                    // Cambiar la dirección de destino entre direction1 y direction2
+                    SetNextDestination();
+                }
+            }
+            else
+            {
+                // Si está persiguiendo al jugador, dirigirse hacia la posición del jugador
+                SetDestination(player.position);
+            }
 
-        // Verificar si el jugador está lo suficientemente cerca para comenzar a perseguirlo
-        if (!isChasing && Vector3.Distance(transform.position, player.position) < chaseDistance)
-        {
-            isChasing = true;
+            // Verificar si el jugador está lo suficientemente cerca para comenzar a perseguirlo
+            if (!isChasing && Vector3.Distance(transform.position, player.position) < chaseDistance)
+            {
+                isChasing = true;
+            }
         }
+    }
+
+    void FleeFromPlayer()
+    {
+
     }
 
     void SetNextDestination()
@@ -50,11 +65,11 @@ public class AIController : MonoBehaviour
         Vector3 direction2Pos = new Vector3(direction2.position.x, 0f, direction2.position.z);
 
         // Comparar las coordenadas X y Z para determinar el próximo destino
-        if (currentPos == direction1Pos )
+        if (currentPos == direction1Pos)
         {
             SetDestination(direction2.position);
         }
-        else if (currentPos == direction2Pos )
+        else if (currentPos == direction2Pos)
         {
             SetDestination(direction1.position);
         }
