@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AnimationStateController : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class AnimationStateController : MonoBehaviour
     public AudioSource hitEnemy;
     public AudioSource hurtEnemy;
     public AudioSource deadEnemy;
+
+    public BoxCollider aliveCollider;
+    public BoxCollider deadCollider;
+    public BoxCollider triggerCollider;
+    public NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +48,8 @@ public class AnimationStateController : MonoBehaviour
             hitEnemy.Play();
             state = 0.5f;
         }
-        if (enemy.health < 50f && distance > chaseRadius)
+        if (enemy.health < 50f && distance > attackRadius)
+
         {
             hurtEnemy.Play();
             state = 0.75f;
@@ -50,7 +57,10 @@ public class AnimationStateController : MonoBehaviour
         if (enemy.health <= 0)
         {
             state = 1;
-
+            triggerCollider.enabled = false;
+            aliveCollider.enabled = false;
+            deadCollider.enabled = true;
+            agent.enabled = false;
             deadEnemy.Play();
             StartCoroutine(DestroyEnemy());
         }
