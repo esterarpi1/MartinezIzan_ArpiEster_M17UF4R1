@@ -49,6 +49,7 @@ public class AnimationStateController : MonoBehaviour
             state = 0.5f;
         }
         if (enemy.health < 50f && distance > attackRadius)
+
         {
             hurtEnemy.Play();
             state = 0.75f;
@@ -68,7 +69,7 @@ public class AnimationStateController : MonoBehaviour
     }
     IEnumerator DestroyEnemy()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
     }
 }
